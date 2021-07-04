@@ -28,7 +28,7 @@ namespace UI.Controllers
 
         [HttpGet]
         public IActionResult List()
-        {
+        {            
             return View();
         }
     }

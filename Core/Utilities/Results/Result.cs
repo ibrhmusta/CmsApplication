@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,7 +7,7 @@ namespace Core.Utilities.Results
 {
     public class Result : IResult
     {
-
+        [JsonConstructor]
         public Result(bool success, string message):this(success)
         {
             Message = message;
@@ -15,6 +16,10 @@ namespace Core.Utilities.Results
         {
             Success = success;
         }
+        //public Result()
+        //{
+        //}
+
 
         public bool Success { get; }
 

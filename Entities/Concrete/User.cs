@@ -1,11 +1,15 @@
-﻿using System;
+﻿
+using Entities.Abstract;
+using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace Core.Entities.Concrete
+#nullable disable
+
+namespace Entities.Concrete
 {
-    public class User : IEntity
+    public partial class User : IEntity
     {
+    
         public int Id { get; set; }
         public int CompanyId { get; set; }
         public string FirstName { get; set; }
@@ -16,8 +20,9 @@ namespace Core.Entities.Concrete
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
+
     }
 }

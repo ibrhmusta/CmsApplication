@@ -49,6 +49,7 @@
 
     <!-- Sweet Alert -->
     <link href="~/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <script src="~/js/plugins/sweetalert/sweetalert.min.js"></script>
 
     <link href="~/css/animate.css" rel="stylesheet">
     <link href="~/css/style.css" rel="stylesheet">
@@ -64,7 +65,9 @@
     <div id="wrapper">
 
         @Html.Partial("_MainMenu")
-
+        <script>
+            @Html.Partial("_Notification")
+        </script>  
         <div id="page-wrapper" class="gray-bg">
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
@@ -192,7 +195,7 @@
 
 
     <!-- Sweet alert -->
-    <script src="~/js/plugins/sweetalert/sweetalert.min.js"></script>
+
     <script>
         $(document).ready(function () {
             $('.dataTables-example').DataTable({

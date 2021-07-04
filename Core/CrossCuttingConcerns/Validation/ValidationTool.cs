@@ -2,6 +2,7 @@
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Core.CrossCuttingConcerns.Validation
@@ -15,7 +16,7 @@ namespace Core.CrossCuttingConcerns.Validation
             var result = validator.Validate(context);
             if (!result.IsValid)
             {
-                throw new ValidationException(result.Errors);
+                throw new ValidationException(string.Join('\n',result.Errors.Select(error=>error.ErrorMessage)));
             }
         }
     }

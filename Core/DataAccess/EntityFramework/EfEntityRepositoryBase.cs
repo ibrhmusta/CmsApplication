@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Core.Entities;
+using Entities.Abstract;
 
 namespace Core.DataAccess.EntityFramework
 {

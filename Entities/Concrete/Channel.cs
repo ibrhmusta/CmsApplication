@@ -1,13 +1,16 @@
-﻿using Core.Entities;
+﻿using Entities.Abstract;
 using System;
 using System.Collections.Generic;
-using System.Text;
+
+#nullable disable
 
 namespace Entities.Concrete
 {
-    public class Channel : IEntity
+    public partial class Channel : IEntity
     {
+
         public int Id { get; set; }
         public string Name { get; set; }
+
     }
 }

@@ -58,5 +58,10 @@ namespace Business.Constants
         public static string CUSTOMER_ADDED = "Müşteri eklendi";
         public static string CUSTOMER_DELETED = "Müşteri silindi";
         public static string CUSTOMER_UPDATED = "Müşteri güncellendi";
+
+        public static string USERS_LISTED = "Kullanıcılar listelendi";
+        public static string USER_ADDED = "Kullanıcı eklendi";
+        public static string USER_DELETED = "Kullanıcı silindi";
+        public static string USER_UPDATED = "Kullanıcı güncellendi";
     }
 } 

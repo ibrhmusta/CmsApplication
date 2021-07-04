@@ -26,7 +26,6 @@ namespace UI
         {
             services.AddControllers();
             services.AddCors();
-            services.AddAutoMapper(typeof(MapperProfile));
             services.AddControllersWithViews();
         }
 

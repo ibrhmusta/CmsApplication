@@ -29,10 +29,10 @@ namespace DataAccess.Concrete.EntityFramework
                              {
                                  Campaign = campaign,
                                  CompanyName = company.Name,
-                                 Type = campaignType.Name,                               
+                                 Type = campaignType.Name,
                                  Day = campaignDay.DayofWeek,
                                  StartHour = campaignHour.StartedHour,
-                                 EndHour = campaignHour.EndedHour,                              
+                                 EndHour = campaignHour.EndedHour,
                              };
                 return result.ToList();
             }

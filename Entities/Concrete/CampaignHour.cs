@@ -1,15 +1,16 @@
-﻿using Core.Entities;
+﻿using Entities.Abstract;
 using System;
 using System.Collections.Generic;
-using System.Text;
+
+#nullable disable
 
 namespace Entities.Concrete
 {
-    public class CampaignHour : IEntity
+    public partial class CampaignHour : IEntity
     {
         public int Id { get; set; }
         public int CampaignId { get; set; }
         public DateTime StartedHour { get; set; }
-        public DateTime EndedHour{ get; set; }
+        public DateTime EndedHour { get; set; }
     }
 }

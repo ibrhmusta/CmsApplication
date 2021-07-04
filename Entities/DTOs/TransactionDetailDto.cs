@@ -1,11 +1,12 @@
-﻿using Entities.Concrete;
+﻿using Entities.Abstract;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Entities.DTOs
 {
-    public class TransactionDetailDto
+    public class TransactionDetailDto : IDto
     {
         public string Channel { get; set; }
         public string PaymentType { get; set; }

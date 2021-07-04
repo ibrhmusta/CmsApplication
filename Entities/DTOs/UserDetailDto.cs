@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Entities.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Entities.DTOs
 {
-    public class UserDetailDto
+    public class UserDetailDto : IDto
     {
         public int UserId { get; set; }
         public int CompanyId { get; set; }
@@ -15,7 +16,7 @@ namespace Entities.DTOs
         public string Email { get; set; }
         public string  PhoneNumber { get; set; }
         public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
         public bool IsActive { get; set; }
     }
 }

@@ -1,0 +1,62 @@
+﻿@model UserAddModel
+
+@{
+    ViewBag.Title = "Kullanıcı Ekle";
+}
+
+<h2>Şirket Ekle</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="col-lg-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Kullanıcı <small>  Ekleme </small></h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-group  row">
+                        <div class="col-sm-8">
+                            <input name="CompanyId" id="CompanyId" required type="text" min="3" class="form-control" placeholder="Şirket" />
+                        </div>
+                        <div class="col-sm-8">
+                            <input name="FirstName" id="FirstName" required type="text" min="3" class="form-control" placeholder="Ad" />
+                        </div>
+                        <div class="col-sm-8">
+                            <input name="LastName" id="LastName" required type="text" min="3" class="form-control" placeholder="Soyad" />
+                        </div>
+                        <div class="col-sm-8">
+                            <input name="UserName" id="UserName" required type="text" min="3" class="form-control" placeholder="Kullanıcı Adı" />
+                        </div>
+                        <div class="col-sm-8">
+                            <input name="Email" id="Email" required type="email" min="3" class="form-control" placeholder="Email" />
+                        </div>
+                        <div class="col-sm-8">
+                            <input name="PhoneNumber" id="PhoneNumber" required type="tel" min="3" class="form-control" placeholder="Tel. No." />
+                        </div>
+                        <div class="col-sm-8">
+                            <input name="Password" id="Password" required type="text" min="3" class="form-control" placeholder="Şifre" />
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="col-sm-12">
+                        <button class="btn btn-block btn-outline btn-primary" type="submit">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Geri Dön", "Index", "Home")
+</div>

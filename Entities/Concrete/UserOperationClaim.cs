@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Entities.Abstract;
+using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace Core.Entities.Concrete
+#nullable disable
+
+namespace Entities.Concrete
 {
-    public class UserOperationClaim:IEntity
+    public partial class UserOperationClaim : IEntity
     {
         public int Id { get; set; }
         public int UserId { get; set; }

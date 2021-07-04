@@ -19,12 +19,19 @@ namespace UI.Controllers
         {           
             return View();
         }
+
         [HttpPost]
         public IActionResult Add(CompanyViewModel companViewModel)
         {
             var client = new RestClient(Constants.baseUrl + "Companies/add");
             var response = Post(companViewModel, client);
-            //var result = JsonConvert.DeserializeObject<IResult>(response.Content);
+            var result = JsonConvert.DeserializeObject<Result>(response.Content);
+            if (!result.Success) 
+            {
+                Alert(result.Message, NotificationType.error);
+                return View();
+            }
+            Alert(result.Message, NotificationType.success);
             return View();
         }     
 

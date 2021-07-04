@@ -1,16 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Entities.DTOs;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UI.Models;
 
 namespace UI.Controllers
 {
-    public class CampaignsController : Controller
+    public class CampaignsController : BaseController<CampaignViewModel>
     {
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Add()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Add(CampaignViewModel campaignViewModel)
         {
             return View();
         }
@@ -30,7 +39,13 @@ namespace UI.Controllers
         [HttpGet]
         public IActionResult List()
         {
-            return View();
+            var client = new RestClient("https://localhost:5001/api/Campaigns/getallcampaigndetails");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            IRestResponse response = client.Execute(request);
+            var dataResult = JsonConvert.DeserializeObject<List<CampaignDetailDto>>(response.Content);
+            CampaignViewModel model = new CampaignViewModel() { CampaignDetails = dataResult };
+            return View(model);
         }
 
         [HttpGet]
