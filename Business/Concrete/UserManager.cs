@@ -60,9 +60,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
         }
 
-        public IDataResult<List<UserDetailDto>> GetUserDetails()
+        public IDataResult<UserDetailDto> GetUserDetails(string userName)
         {
-            return new SuccessDataResult<List<UserDetailDto>>(_userDal.GetUserDetails());
+            return new SuccessDataResult<UserDetailDto>(_userDal.GetUserDetails(user=>user.UserName == userName));
         }
         
 

@@ -11,6 +11,10 @@ namespace Entities.DTOs
     {
         public string CompanyName { get; set; }
         public Campaign Campaign { get; set; }
+        public string CampaignRewardType { get; set; }
+        public int CampaignReward { get; set; }
+        public string CampaignRuleType { get; set; }
+        public string CampaignRule { get; set; }
         public string Type { get; set; }
         public Day Day { get; set; }
         public DateTime StartHour { get; set; }

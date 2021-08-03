@@ -12,15 +12,20 @@ namespace UI.Controllers
 {
     public class BaseController<TViewModel> : Controller
     {
-        public IRestResponse Post(TViewModel viewModel, RestClient client)
+        public IRestResponse Post(TViewModel viewModel, RestClient client, string token)
         {
             client.Timeout = -1;
             var request = new RestRequest(Method.POST);
-            request.AddHeader("Authorization", "Bearer" + " " + Constants.token);
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                request.AddHeader("Authorization", "Bearer" + " " + token);
+            }
+
             request.AddHeader("Content-Type", "application/json");
             var body = JsonConvert.SerializeObject(viewModel);
             request.AddParameter("application/json", body, ParameterType.RequestBody);
-            IRestResponse response = client.Execute(request);           
+            IRestResponse response = client.Execute(request);
             return response;
         }
         public void Alert(string message, NotificationType notificationType)
@@ -30,4 +35,3 @@ namespace UI.Controllers
         }
     }
 }
- 

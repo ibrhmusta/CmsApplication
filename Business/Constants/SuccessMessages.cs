@@ -17,6 +17,26 @@ namespace Business.Constants
         public static string CAMPAIGN_DAY_DELETED = "Gün silindi";
         public static string CAMPAIGN_DAY_UPDATED = "Gün güncellendi";
 
+        public static string CAMPAIGN_REWARDS_LISTED = "Kampanya ödülleri listelendi";
+        public static string CAMPAIGN_REWARD_ADDED = "Kampanya ödülü eklendi";
+        public static string CAMPAIGN_REWARD_DELETED = "Kampanya ödülü silindi";
+        public static string CAMPAIGN_REWARD_UPDATED = "Kampanya ödülü güncellendi";
+        
+        public static string CAMPAIGN_REWARD_TYPES_LISTED = "Kampanya ödül tipleri eklendi";
+        public static string CAMPAIGN_REWARD_TYPE_ADDED = "Kampanya ödül tipi eklendi";
+        public static string CAMPAIGN_REWARD_TYPE_DELETED = "Kampanya ödül tipi silindi";
+        public static string CAMPAIGN_REWARD_TYPE_UPDATED = "Kampanya ödül tipi güncellendi";
+
+        public static string CAMPAIGN_RULES_LISTED = "Kampanya kuraları listelendi";
+        public static string CAMPAIGN_RULE_ADDED = "Kampanya kuralı eklendi";
+        public static string CAMPAIGN_RULE_DELETED = "Kampanya kuralı silindi";
+        public static string CAMPAIGN_RULE_UPDATED = "Kampanya kuralı güncellendi";
+
+        public static string CAMPAIGN_RULE_TYPES_LISTED = "Kampanya kural tipleri listelendi";
+        public static string CAMPAIGN_RULE_TYPE_ADDED = "Kampanya kural tipi eklendi";
+        public static string CAMPAIGN_RULE_TYPE_DELETED = "Kampanya kural tipi silindi";
+        public static string CAMPAIGN_RULE_TYPE_UPDATED = "Kampanya kural tipi güncellendi";
+
         public static string CAMPAIGN_HOURS_LISTED = "Saatler listelendi";
         public static string CAMPAIGN_HOUR_ADDED = "Saat eklendi";
         public static string CAMPAIGN_HOUR_DELETED = "Saat silindi";

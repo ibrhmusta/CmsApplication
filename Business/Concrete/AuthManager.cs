@@ -5,6 +5,7 @@ using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.JWT;
 using Entities.Concrete;
 using Entities.DTOs;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Business.Concrete
@@ -50,6 +51,7 @@ namespace Business.Concrete
             var accessToken = _tokenHelper.CreateToken(user, claims.Data);
             return new SuccessDataResult<AccessToken>(accessToken);
         }
+
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {

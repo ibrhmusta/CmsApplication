@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -21,6 +23,28 @@ namespace API.Controllers
             if (result.Success)
             {
                 return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getbyusername")]
+        public IActionResult GetByUserName(string userName)
+        {
+            var result = _userService.GetByUserName(userName);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getuserdetails")]
+        public IActionResult GetUserDetails(string userName)
+        {
+            var result = _userService.GetUserDetails(userName);
+            if (result.Success)
+            {
+                return Ok(result.Data);
             }
             return BadRequest(result);
         }

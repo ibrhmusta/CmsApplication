@@ -27,7 +27,9 @@ namespace Business.Concrete
             company.ModifiedDate = System.DateTime.Now;
             company.IsActive = true;
             company.IsDeleted = false;
+
             _companyDal.Add(company);
+
             return new SuccessResult(SuccessMessages.COMPANY_ADDED);
         }
 

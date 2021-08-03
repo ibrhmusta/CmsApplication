@@ -1,4 +1,6 @@
 ﻿using Core.Utilities.Results;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RestSharp;
@@ -12,6 +14,7 @@ using UI.Models;
 
 namespace UI.Controllers
 {
+    [Authorize(Roles ="admin")]
     public class CompaniesController : BaseController<CompanyViewModel>
     {
         [HttpGet]
@@ -24,7 +27,7 @@ namespace UI.Controllers
         public IActionResult Add(CompanyViewModel companViewModel)
         {
             var client = new RestClient(Constants.baseUrl + "Companies/add");
-            var response = Post(companViewModel, client);
+            var response = Post(companViewModel, client, HttpContext.Session.GetString("_Token"));
             var result = JsonConvert.DeserializeObject<Result>(response.Content);
             if (!result.Success) 
             {

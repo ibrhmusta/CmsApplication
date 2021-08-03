@@ -5,13 +5,13 @@
                 <div class="dropdown profile-element">
                     <img alt="image" class="rounded-circle" width="50px" height="50px" src="~/img/a4.jpg" />
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="block m-t-xs font-bold">İbrahim Usta </span>
-                        <span class="text-muted text-xs block">Yazılım<b class="caret"></b></span>
+                        <span class="block m-t-xs font-bold">@Context.Session.GetString("_Name") @Context.Session.GetString("_Surname")</span>
+                        <span class="text-muted text-xs block">@Context.Session.GetString("_Company")<b class="caret"></b></span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a class="dropdown-item" href="">Ayarlar</a></li>
                         <li class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/Auth/Login">Çıkış</a></li>
+                        <li><a class="dropdown-item" href="/Auth/LogOut">Çıkış</a></li>
                     </ul>
                 </div>
                 <div class="logo-element">
@@ -27,29 +27,35 @@
                     <li><a href="">Kampanya Ekle</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="/Processes/Index"><i class="fa fa-building"></i> <span class="nav-label">Firmalar</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse">
-                    <li><a href="">Firma Listesi</a></li>
-                    <li><a href="/Companies/Add">Firma Ekle</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Kullanıcılar</span> <span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse">
-                    <li><a href="/Users/Add">Kullanıcı Ekle</a></li>
-                    <li><a href="">Kullanıcı Listesi</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="/Product/List"><i class="fa fa-shopping-basket"></i> <span class="nav-label">Ürünler</span></a>
-            </li>
-            <li>
-                <a href=""><i class="fa fa-tags"></i> <span class="nav-label">Kategoriler</span></a>
-            </li>
-            <li>
-                <a href=""><i class="fa fa-credit-card-alt"></i> <span class="nav-label">Ödeme Tipleri</span></a>
-            </li>
+            @if (User.IsInRole("admin"))
+            {
+                <li>
+                    <a href="/Processes/Index"><i class="fa fa-building"></i> <span class="nav-label">Firmalar</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="">Firma Listesi</a></li>
+                        <li><a href="/Companies/Add">Firma Ekle</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Kullanıcılar</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="/Users/Add">Kullanıcı Ekle</a></li>
+                        <li><a href="">Kullanıcı Listesi</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="/Product/List"><i class="fa fa-shopping-basket"></i> <span class="nav-label">Ürünler</span></a>
+                </li>
+                <li>
+                    <a href=""><i class="fa fa-tags"></i> <span class="nav-label">Kategoriler</span></a>
+                </li>
+                <li>
+                    <a href=""><i class="fa fa-credit-card-alt"></i> <span class="nav-label">Ödeme Tipleri</span></a>
+                </li>
+            }
+
 
         </ul>
     </div>

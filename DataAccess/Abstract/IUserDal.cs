@@ -10,7 +10,7 @@ namespace DataAccess.Abstract
 {
     public interface IUserDal : IEntityRepository<User>
     {
-        List<UserDetailDto> GetUserDetails(Expression<Func<User, bool>> filter = null);
+        UserDetailDto GetUserDetails(Expression<Func<User, bool>> filter = null);
         List<OperationClaim> GetClaims(User user);
     }
 }

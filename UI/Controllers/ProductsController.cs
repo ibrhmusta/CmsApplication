@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Core.Utilities.Results;
 using Entities.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RestSharp;
@@ -13,14 +14,9 @@ using UI.Models;
 
 namespace UI.Controllers
 {
-    public  class ProductsController : Controller
+    [Authorize(Roles = "admin")]
+    public class ProductsController : Controller
     {
-        private readonly IMapper _mapper;
-        
-        public ProductsController(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         [HttpGet]
         public IActionResult List()
         {

@@ -1,12 +1,12 @@
-﻿using Entities.Abstract;
-using Entities.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
+using UI.Models.Abstract;
 
-namespace Entities.DTOs
+namespace UI.Models
 {
-    public class UserDetailDto : IDto
+    public class UserDetailModel : IModel
     {
         public int UserId { get; set; }
         public int CompanyId { get; set; }

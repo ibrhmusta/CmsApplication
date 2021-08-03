@@ -11,7 +11,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfUserDal : EfEntityRepositoryBase<User, CmsContext>, IUserDal
     {
-        public List<UserDetailDto> GetUserDetails(Expression<Func<User, bool>> filter = null)
+        public UserDetailDto GetUserDetails(Expression<Func<User, bool>> filter = null)
         {
             using (CmsContext context = new CmsContext())
             {
@@ -22,17 +22,14 @@ namespace DataAccess.Concrete.EntityFramework
                              {
                                  UserId = user.Id,
                                  CompanyId = company.Id,
+                                 CompanyName = company.Name,
                                  FirstName = user.FirstName,
                                  LastName = user.LastName,
                                  UserName = user.UserName,
-                                 CompanyName = company.Name,
                                  Email = user.Email,
-                                 PhoneNumber = user.PhoneNumber,
-                                 CreatedDate = user.CreatedDate,
-                                 ModifiedDate = user.ModifiedDate,
-                                 IsActive = user.IsActive
+                                 PhoneNumber = user.PhoneNumber
                              };
-                return result.ToList();
+                return result.First();
             }
         }
 

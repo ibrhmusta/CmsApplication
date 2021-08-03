@@ -1,4 +1,5 @@
 ﻿using Entities.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RestSharp;
@@ -10,6 +11,7 @@ using UI.Models;
 
 namespace UI.Controllers
 {
+    [Authorize(Roles = "admin,user")]
     public class CampaignsController : BaseController<CampaignViewModel>
     {
 
