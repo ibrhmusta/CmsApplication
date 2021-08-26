@@ -29,7 +29,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  Email = user.Email,
                                  PhoneNumber = user.PhoneNumber
                              };
-                return result.First();
+                return result.FirstOrDefault();
             }
         }
 

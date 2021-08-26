@@ -11,9 +11,9 @@ namespace Business.Concrete
 {
     public class CampaignRuleManager : ICampaignRuleService
     {
-        private readonly ICapmaignRuleDal _campaignRuleDal;
+        private readonly ICampaignRuleDal _campaignRuleDal;
 
-        public CampaignRuleManager(ICapmaignRuleDal campaignRuleDal)
+        public CampaignRuleManager(ICampaignRuleDal campaignRuleDal)
         {
             _campaignRuleDal = campaignRuleDal;
         }

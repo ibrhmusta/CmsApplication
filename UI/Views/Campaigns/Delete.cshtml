@@ -1,0 +1,29 @@
+﻿@model CampaignViewModel
+<script type="text/javascript">
+    function functionConfirm(event) {
+        swal({
+            title: 'are you sur?',
+            text: "You will not be able to recover this item",
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'No',
+            cancelButtonClass: 'btn btn-danger',
+            showConfirmButton: true,
+            confirmButtonText: 'Yes',
+            confirmButtonClass: 'btn btn-success'
+        }, function (isConfirm) {
+            if (isConfirm) {
+                $('form').submit();
+                return true;
+            } else {
+                return false;
+            }
+        });
+        return false;
+    }
+</script>
+<form asp-action="Delete" asp-route-id="" method="post">
+    <button type="submit" class="btn btn-danger" onclick="return functionConfirm(this)">
+        Delete
+    </button>
+</form>

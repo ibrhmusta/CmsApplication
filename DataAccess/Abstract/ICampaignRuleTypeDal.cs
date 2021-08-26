@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DataAccess.Abstract
 {
-    public interface ICapmaignRewardTypeDal : IEntityRepository<CampaignRewardType>
+    public interface ICampaignRuleTypeDal : IEntityRepository<CampaignRuleType>
     {
     }
 }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCampaignRewardTypeDal : EfEntityRepositoryBase<CampaignRewardType,CmsContext>, ICapmaignRewardTypeDal
+    public class EfCampaignRewardTypeDal : EfEntityRepositoryBase<CampaignRewardType,CmsContext>, ICampaignRewardTypeDal
     {
     }
 }

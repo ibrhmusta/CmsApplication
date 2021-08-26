@@ -11,7 +11,8 @@ namespace Business.Abstract
     {
         IDataResult<List<Campaign>> GetAll();
         IDataResult<List<CampaignDetailDto>> GetAllCampaignDetails();
-        IResult Add(Campaign campaign);
+        IDataResult<CampaignDetailDto> GetCampaignDetails(int campaignId);
+        IResult Add(CampaignDtoForAdd campaignDetailDto);
         IResult Delete(Campaign campaign);
         IResult Update(Campaign campaign);
     }

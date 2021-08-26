@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCampaignRuleDal : EfEntityRepositoryBase<CampaignRule,CmsContext>, ICapmaignRuleDal
+    public class EfCampaignRuleDal : EfEntityRepositoryBase<CampaignRule,CmsContext>, ICampaignRuleDal
     {
     }
 }

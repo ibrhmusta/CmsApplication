@@ -10,7 +10,7 @@ namespace Entities.Concrete
     {
         public int Id { get; set; }
         public int CampaignRuleTypeId { get; set; }
-        public string Name { get; set; }
+        public double Value { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public bool IsActive { get; set; }

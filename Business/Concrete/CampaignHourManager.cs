@@ -18,6 +18,7 @@ namespace Business.Concrete
 
         public IResult Add(CampaignHour campaignHour)
         {
+            
             _campaignHourDal.Add(campaignHour);
             return new SuccessResult(SuccessMessages.CAMPAIGN_HOUR_ADDED);
         }

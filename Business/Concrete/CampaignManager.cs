@@ -1,6 +1,5 @@
 ﻿using Business.Abstract;
 using Business.Constants;
-using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -13,59 +12,100 @@ namespace Business.Concrete
     public class CampaignManager : ICampaignService
     {
         private readonly ICampaignDal _campaignDal;
-        private readonly ICampaignDayService _campaignDayService;
-        private readonly ICampaignHourService _campaignHourService;
-        private readonly ICampaignTypeService _campaignTypeService;
-        private readonly ICompanyService _companyService;
+        private readonly ICampaignRuleDal _campaignRuleDal;
+        private readonly ICampaignRewardDal _campaignRewardDal;
+        private readonly ICampaignDayDal _campaignDayDal;
+        private readonly ICampaignHourDal _campaignHourDal;
+        private readonly ICampaignRewardService _campaignRewardService;
+        private readonly ICampaignRuleService _campaignRuleService;
 
-        public CampaignManager(ICampaignDal campaignDal, ICampaignDayService campaignDayService,
-            ICampaignHourService campaignHourService, ICampaignTypeService campaignTypeService, ICompanyService companyService)
+        public CampaignManager(ICampaignDal campaignDal, ICampaignRuleDal campaignRuleDal,
+            ICampaignRewardDal campaignRewardDal, ICampaignDayDal campaignDayDal, ICampaignHourDal campaignHourDal,
+            ICampaignRewardService campaignRewardService, ICampaignRuleService campaignRuleService)
         {
             _campaignDal = campaignDal;
-            _campaignDayService = campaignDayService;
-            _campaignHourService = campaignHourService;
-            _campaignTypeService = campaignTypeService;
-            _companyService = companyService;
+            _campaignRuleDal = campaignRuleDal;
+            _campaignRewardDal = campaignRewardDal;
+            _campaignDayDal = campaignDayDal;
+            _campaignHourDal = campaignHourDal;
+            _campaignRewardService = campaignRewardService;
+            _campaignRuleService = campaignRuleService;
         }
 
-        public IResult Add(Campaign campaign)
+        public IResult Add(CampaignDtoForAdd campaignDetailDto)
         {
-            //campaignDetailDto.campaign.CreatedDate = System.DateTime.Now;
-            //campaignDetailDto.campaign.ModifiedDate = System.DateTime.Now;
-            //campaignDetailDto.campaign.IsActive = true;
-            //campaignDetailDto.campaign.IsDeleted = false;
-            //campaignDetailDto.campaignDay.CampaignId = campaignDetailDto.campaign.Id;
-            //campaignDetailDto.campaignHour.CampaignId = campaignDetailDto.campaign.Id;
-            //_campaignDal.Add(campaignDetailDto.campaign);
-            //_campaignDayService.Add(campaignDetailDto.campaignDay);
-            var result = BusinessRules.Run(IsCampaignExist(campaign.Name));
-            if (!result.Success)
-            {
-                return result;
-            }
-            _campaignDal.Add(campaign);
+            campaignDetailDto.CampaignReward.CampaignRewardTypeId = campaignDetailDto.CampaignRewardTypeId;
+            campaignDetailDto.CampaignRule.CampaignRuleTypeId = campaignDetailDto.CampaignRuleTypeId;
+            campaignDetailDto.Campaign.CompanyId = campaignDetailDto.CompanyId;
+            campaignDetailDto.Campaign.TypeId = campaignDetailDto.CampaignTypeId;
+
+            campaignDetailDto.CampaignRule.CreatedDate = System.DateTime.Now;
+            campaignDetailDto.CampaignRule.ModifiedDate = System.DateTime.Now;
+            campaignDetailDto.CampaignRule.IsActive = true;
+            campaignDetailDto.CampaignRule.IsDeleted = false;
+
+            _campaignRuleDal.Add(campaignDetailDto.CampaignRule);
+
+            campaignDetailDto.CampaignReward.CreatedDate = System.DateTime.Now;
+            campaignDetailDto.CampaignReward.ModifiedDate = System.DateTime.Now;
+            campaignDetailDto.CampaignReward.IsActive = true;
+            campaignDetailDto.CampaignReward.IsDeleted = false;
+
+            _campaignRewardDal.Add(campaignDetailDto.CampaignReward);
+
+            campaignDetailDto.Campaign.CampaignRuleId = campaignDetailDto.CampaignRule.Id;
+            campaignDetailDto.Campaign.CampaignRewardId = campaignDetailDto.CampaignReward.Id;
+
+            campaignDetailDto.Campaign.CreatedDate = System.DateTime.Now;
+            campaignDetailDto.Campaign.ModifiedDate = System.DateTime.Now;
+            campaignDetailDto.Campaign.IsActive = true;
+            campaignDetailDto.Campaign.IsDeleted = false;
+
+            _campaignDal.Add(campaignDetailDto.Campaign);
+
+            campaignDetailDto.CampaignDay.CampaignId = campaignDetailDto.Campaign.Id;
+            campaignDetailDto.CampaignHour.CampaignId = campaignDetailDto.Campaign.Id;
+
+            _campaignDayDal.Add(campaignDetailDto.CampaignDay);
+            _campaignHourDal.Add(campaignDetailDto.CampaignHour);
             return new SuccessResult(SuccessMessages.CAMPAIGN_ADDED);
         }
 
         public IResult Delete(Campaign campaign)
         {
-            campaign.IsActive = false;
-            campaign.IsDeleted = true;
-            campaign.ModifiedDate = System.DateTime.Now;
-            _campaignDal.Update(campaign);
+            var deletedCampaign = GetCampaignDetails(campaign.Id).Data;
+
+            _campaignDayDal.Delete(deletedCampaign.CampaignDay);
+            _campaignHourDal.Delete(deletedCampaign.CampaignHour);
+
+            deletedCampaign.Campaign.IsActive = false;
+            deletedCampaign.Campaign.IsDeleted = true;
+            deletedCampaign.Campaign.ModifiedDate = System.DateTime.Now;
+
+            _campaignDal.Update(deletedCampaign.Campaign);
+
+            _campaignRewardService.Delete(deletedCampaign.CampaignReward);
+            _campaignRuleService.Delete(deletedCampaign.CampaignRule);
+
             return new SuccessResult(SuccessMessages.CAMPAIGN_DELETED);
         }
 
         public IDataResult<List<Campaign>> GetAll()
         {
             var result = _campaignDal.GetAll();
-            return new SuccessDataResult<List<Campaign>>(result,SuccessMessages.CAMPAIGNS_LISTED);
+            return new SuccessDataResult<List<Campaign>>(result, SuccessMessages.CAMPAIGNS_LISTED);
         }
 
         public IDataResult<List<CampaignDetailDto>> GetAllCampaignDetails()
         {
             var result = _campaignDal.GetAllCampaignDetails();
             return new SuccessDataResult<List<CampaignDetailDto>>(result, SuccessMessages.CAMPAIGN_DETAILS_LISTED);
+        }
+
+        public IDataResult<CampaignDetailDto> GetCampaignDetails(int campaignId)
+        {
+            var result = _campaignDal.GetAllCampaignDetails(c => c.Id == campaignId).FirstOrDefault();
+            return new SuccessDataResult<CampaignDetailDto>(result, SuccessMessages.CAMPAIGN_DETAILS_LISTED);
         }
 
         public IResult Update(Campaign campaign)

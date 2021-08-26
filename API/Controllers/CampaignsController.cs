@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -16,9 +17,9 @@ namespace API.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Campaign campaign)
+        public IActionResult Add(CampaignDtoForAdd campaignDetailDto)
         {
-            var result = _campaignService.Add(campaign);
+            var result = _campaignService.Add(campaignDetailDto);
             if (!result.Success)
             {
                 return BadRequest(result);
@@ -63,6 +64,17 @@ namespace API.Controllers
         public IActionResult GetAllCampaignDetails()
         {
             var result = _campaignService.GetAllCampaignDetails();
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result.Data);
+        }
+
+        [HttpGet("getcampaigndetails")]
+        public IActionResult GetCampaignDetails(int campaignId)
+        {
+            var result = _campaignService.GetCampaignDetails(campaignId);
             if (!result.Success)
             {
                 return BadRequest(result.Message);

@@ -11,9 +11,9 @@ namespace Business.Concrete
 {
     public class CampaignRewardTypeManager : ICampaignRewardTypeService
     {
-        private readonly ICapmaignRewardTypeDal _campaignRewardTypeDal;
+        private readonly ICampaignRewardTypeDal _campaignRewardTypeDal;
 
-        public CampaignRewardTypeManager(ICapmaignRewardTypeDal campaignRewardTypeDal)
+        public CampaignRewardTypeManager(ICampaignRewardTypeDal campaignRewardTypeDal)
         {
             _campaignRewardTypeDal = campaignRewardTypeDal;
         }

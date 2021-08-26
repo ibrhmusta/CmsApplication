@@ -14,7 +14,7 @@ using UI.Models;
 namespace UI.Controllers
 {
     [Authorize(Roles = "admin")]
-    public class UsersController : BaseController<UserAddModel>
+    public class UsersController : BaseController
     {
         [HttpGet]
         public IActionResult Add()
@@ -23,17 +23,20 @@ namespace UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(UserAddModel userAddModel)
+        public async Task<IActionResult> Add(UserAddModel userAddModel)
         {
-            var client = new RestClient(Constants.baseUrl + "Auth/register");
-            var response = Post(userAddModel, client, HttpContext.Session.GetString("_Token"));
-            var result = JsonConvert.DeserializeObject<Result>(response.Content);
+            var result = RestsharpHelper.Post<Result>("Auth/register", userAddModel, HttpContext.Session.GetString("_Token"));
+
+            //var client = new RestClient(Constants.baseUrl + "Auth/register");
+            //var response = Post(userAddModel, client, HttpContext.Session.GetString("_Token"));
+            //var result = JsonConvert.DeserializeObject<Result>(response.Content);
+
             if (!result.Success)
             {
-                Alert(result.Message, NotificationType.error);
+                await Alert(result.Message, NotificationType.error);
                 return View();
             }
-            Alert(result.Message, NotificationType.success);
+            await Alert(result.Message, NotificationType.success);
             return View();
         }
     }

@@ -26,6 +26,18 @@ namespace Business.DependecyResolvers.Autofac
             builder.RegisterType<CampaignManager>().As<ICampaignService>().SingleInstance();
             builder.RegisterType<EfCampaignDal>().As<ICampaignDal>().SingleInstance();
 
+            builder.RegisterType<CampaignRewardManager>().As<ICampaignRewardService>().SingleInstance();
+            builder.RegisterType<EfCampaignRewardDal>().As<ICampaignRewardDal>().SingleInstance();
+
+            builder.RegisterType<CampaignRewardTypeManager>().As<ICampaignRewardTypeService>().SingleInstance();
+            builder.RegisterType<EfCampaignRewardTypeDal>().As<ICampaignRewardTypeDal>().SingleInstance();
+
+            builder.RegisterType<CampaignRuleManager>().As<ICampaignRuleService>().SingleInstance();
+            builder.RegisterType<EfCampaignRuleDal>().As<ICampaignRuleDal>().SingleInstance();
+
+            builder.RegisterType<CampaignRuleTypeManager>().As<ICampaignRuleTypeService>().SingleInstance();
+            builder.RegisterType<EfCampaignRuleTypeDal>().As<ICampaignRuleTypeDal>().SingleInstance();
+
             builder.RegisterType<CampaignTypeManager>().As<ICampaignTypeService>().SingleInstance();
             builder.RegisterType<EfCampaignTypeDal>().As<ICampaignTypeDal>().SingleInstance();
 

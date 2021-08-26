@@ -25,14 +25,27 @@ namespace DataAccess.Concrete.EntityFramework
                                 on campaign.TypeId equals campaignType.Id
                              join company in context.Companies
                                 on campaign.CompanyId equals company.Id
+                             join campaignRule in context.CampaignRules
+                                on campaign.CampaignRuleId equals campaignRule.Id
+                             join campaignReward in context.CampaignRewards
+                                on campaign.CampaignRewardId equals campaignReward.Id
+                             join campaignRuleType in context.CampaignRuleTypes
+                                on campaignRule.CampaignRuleTypeId equals campaignRuleType.Id
+                             join campaignRewardType in context.CampaignRewardTypes
+                                on campaignReward.CampaignRewardTypeId equals campaignRewardType.Id
                              select new CampaignDetailDto
                              {
                                  Campaign = campaign,
+                                 CampaignRuleType = campaignRuleType.Name,
+                                 CampaignRuleValue = campaignRule.Value,
+                                 CampaignRewardType = campaignRewardType.Name,
+                                 CampaignRewardValue = campaignReward.Value,
                                  CompanyName = company.Name,
-                                 Type = campaignType.Name,
-                                 Day = campaignDay.DayofWeek,
-                                 StartHour = campaignHour.StartedHour,
-                                 EndHour = campaignHour.EndedHour,
+                                 CampaignType = campaignType.Name,
+                                 CampaignDay = campaignDay,
+                                 CampaignHour = campaignHour,
+                                 CampaignReward = campaignReward,
+                                 CampaignRule = campaignRule
                              };
                 return result.ToList();
             }

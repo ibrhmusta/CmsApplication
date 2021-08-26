@@ -10,28 +10,28 @@ using UI.Commons;
 
 namespace UI.Controllers
 {
-    public class BaseController<TViewModel> : Controller
+    public class BaseController : Controller
     {
-        public IRestResponse Post(TViewModel viewModel, RestClient client, string token)
-        {
-            client.Timeout = -1;
-            var request = new RestRequest(Method.POST);
+        //public IRestResponse Post(TViewModel viewModel, RestClient client, string token)
+        //{
+        //    client.Timeout = -1;
+        //    var request = new RestRequest(Method.POST);
 
-            if (!string.IsNullOrEmpty(token))
-            {
-                request.AddHeader("Authorization", "Bearer" + " " + token);
-            }
+        //    if (!string.IsNullOrEmpty(token))
+        //    {
+        //        request.AddHeader("Authorization", "Bearer" + " " + token);
+        //    }
 
-            request.AddHeader("Content-Type", "application/json");
-            var body = JsonConvert.SerializeObject(viewModel);
-            request.AddParameter("application/json", body, ParameterType.RequestBody);
-            IRestResponse response = client.Execute(request);
-            return response;
-        }
-        public void Alert(string message, NotificationType notificationType)
+        //    request.AddHeader("Content-Type", "application/json");
+        //    var body = JsonConvert.SerializeObject(viewModel);
+        //    request.AddParameter("application/json", body, ParameterType.RequestBody);
+        //    IRestResponse response = client.Execute(request);
+        //    return response;
+        //}
+        public async Task<object> Alert(string message, NotificationType notificationType)
         {
             var msg = "swal('" + notificationType.ToString().ToUpper() + "', '" + message + "','" + notificationType + "')" + "";
-            TempData["notification"] = msg;
+            return TempData["notification"] = msg;
         }
     }
 }

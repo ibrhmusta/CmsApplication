@@ -35,8 +35,7 @@
 
                     </div>
                     <h3>KYS`ne Hoşgeldiniz</h3>
-                    <p>İşlem yapmak için giriş yapınız!</p>
-
+                    <p>İşlem yapmak için giriş yapınız!</p>                   
                     <form class="m-t" role="form" action="/Home/Index">
                         <div class="form-group">
                             <input name="UserName" id="UserName" required type="text" class="form-control" placeholder="Kullanıcı Adı">
@@ -44,6 +43,7 @@
                         <div class="form-group">
                             <input name="Password" id="Password" type="password" class="form-control" placeholder="Parola" required="">
                         </div>
+                        <p style="color:red; text-align:center; font-size:medium">@ViewBag.Message</p>
                         <button type="submit" class="btn btn-primary block full-width m-b">Giriş</button>
 
                         <a href="#"><small>Şifremi Unuttum</small></a>

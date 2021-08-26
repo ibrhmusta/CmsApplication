@@ -10,8 +10,8 @@ namespace Business.ValidationRules.FluentValidation
     {
         public CampaignValidator()
         {
-            RuleFor(campaign => campaign.Name).NotEmpty();
-            RuleFor(campaign => campaign.Name).MinimumLength(5);
+            //RuleFor(campaign => campaign.Name).NotEmpty();
+            //RuleFor(campaign => campaign.Name).MinimumLength(5);
         }
     }
 }

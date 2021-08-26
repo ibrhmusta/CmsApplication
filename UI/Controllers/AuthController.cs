@@ -19,7 +19,7 @@ using System.Collections.Generic;
 namespace UI.Controllers
 {
 
-    public class AuthController : BaseController<UserLoginModel>
+    public class AuthController : BaseController
     {
         [HttpGet]
         public IActionResult Login()
@@ -30,19 +30,15 @@ namespace UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginModel userLoginModel)
         {
-            const string SessionName = "_Name";
-            const string SessionSurname = "_Surname";
-            const string SessionRole = "_Role";
-            const string SessionToken = "_Token";
-            const string SessionCompany = "_Company";
+            var result = RestsharpHelper.Post<DataResult<AccessToken>>("Auth/login", userLoginModel, null);
 
-            RestClient client = new RestClient(Constants.baseUrl + "Auth/login");
+            //RestClient client = new RestClient(Constants.baseUrl + "Auth/login");
+            //IRestResponse response = Post(userLoginModel, client, null);
+            //var result = JsonConvert.DeserializeObject<DataResult<AccessToken>>(response.Content);
 
-            IRestResponse response = Post(userLoginModel, client, null);
-            var result = JsonConvert.DeserializeObject<DataResult<AccessToken>>(response.Content);
-
-            if (result.Data == null)
+            if (result == null || result.Data == null)
             {
+                ViewBag.Message = result.Message;
                 return View();
             }
 
@@ -51,44 +47,51 @@ namespace UI.Controllers
 
             UserInfo(userLoginModel.UserName);
 
-            HttpContext.Session.SetString(SessionRole, Role);
-            HttpContext.Session.SetString(SessionToken, result.Data.Token);
+            HttpContext.Session.SetString(Constants.SessionRole, Role);
+            HttpContext.Session.SetString(Constants.SessionToken, result.Data.Token);
 
             var identity = new ClaimsIdentity(new[] {
                     new Claim(ClaimTypes.Role,Role)
                 }, CookieAuthenticationDefaults.AuthenticationScheme);
 
             var principal = new ClaimsPrincipal(identity);
-            var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
 
             if (!result.Success)
-            {             
+            {
+                await Alert(result.Message, NotificationType.error);
                 return View();
             }
+            await Alert(result.Message, NotificationType.success);
             return RedirectToAction("Admin", "Home");
         }
 
         [HttpGet]
-        public IActionResult LogOut()
+        public async Task<IActionResult> LogOut()
         {
-            var logOut = HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             return RedirectToAction("Login", "Auth");
         }
 
         private void UserInfo(string userName)
         {
-            var client = new RestClient("https://localhost:5001/api/users/getuserdetails?userName=" + userName);
-            client.Timeout = -1;
-            var request = new RestRequest(Method.GET);
-            IRestResponse response = client.Execute(request);
-            var dataResult = JsonConvert.DeserializeObject<UserDetailDto>(response.Content);
-;
-            
-            HttpContext.Session.SetString("_Name", dataResult.FirstName);
-            HttpContext.Session.SetString("_Surname", dataResult.LastName);
-            HttpContext.Session.SetString("_Company", dataResult.CompanyName);
+            var result = RestsharpHelper.Get<UserDetailDto>("users/getuserdetails?userName=" + userName);
+
+            //var client = new RestClient("https://localhost:5001/api/users/getuserdetails?userName=" + userName)
+            //{
+            //    Timeout = -1
+            //};
+            //var request = new RestRequest(Method.GET);
+            //IRestResponse response = client.Execute(request);
+            //var dataResult = JsonConvert.DeserializeObject<UserDetailDto>(response.Content);
+
+
+            HttpContext.Session.SetString(Constants.SessionName, result.FirstName);
+            HttpContext.Session.SetString(Constants.SessionSurname, result.LastName);
+            HttpContext.Session.SetString(Constants.SessionCompany, result.CompanyName);
+            HttpContext.Session.SetInt32(Constants.SessionCompanyId, result.CompanyId);
         }
     }
 }
